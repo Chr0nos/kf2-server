@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+    kf2:
+        container_name: kf2
+        image: snicolet/kf2-server
+        build:
+          context: ./
+
+        restart: unless-stopped
+        ports:
+            - 0.0.0.0:20560:20560/udp
+            - 0.0.0.0:27015:27015/udp
+            - 0.0.0.0:7777:7777/udp
+            - 0.0.0.0:8080:8080
+        environment:
+            - KF_BANNER_LINK="http:\/\/art.tripwirecdn.com\/TestItemIcons\/MOTDServer.png"
+            - KF_DIFFICULTY=3
+            - KF_GAME_LENGTH=2
+            - KF_MAP=KF-BioticsLab
+            - KF_MOTD="Welcome to our Thorin!"
+            - KF_PORT=7777
+            - KF_QUERY_PORT=27015
+            - KF_SERVER_NAME="Thorin"
+            - KF_WEBADMIN_PORT=8080
+            - KF_WEBADMIN_PASSWORD=adminpass
+            - KF_WEBSITE_LINK="https:\/\/killingfloor2.com\/"
+            - KF_GAMEMODE=Survival
+            - KF_DISABLE_TAKEOVER=true
+        logging:
+            # limit logs retained on host to 25MB
+            driver: "json-file"
+            options:
+                max-size: "500k"
+                max-file: "50"
